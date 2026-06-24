@@ -1,0 +1,30 @@
+[build-system]
+requires = ["setuptools>=61"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "ishvacerto"
+version = "0.1.0"
+description = "Prove AI-written code, refute it with the exact failing input, or honestly abstain. Never guesses. Runs locally."
+readme = "README.md"
+requires-python = ">=3.9"
+license = { text = "MIT" }
+authors = [{ name = "Ishva" }]
+keywords = ["ai", "code-verification", "testing", "llm", "static-analysis", "ci", "hallucination"]
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "License :: OSI Approved :: MIT License",
+    "Topic :: Software Development :: Testing",
+    "Topic :: Software Development :: Quality Assurance",
+]
+dependencies = []   # pure standard library -- no dependencies, nothing leaves your machine
+
+[project.urls]
+Homepage = "https://github.com/ishvaproducts-png/ishvacerto"
+Issues = "https://github.com/ishvaproducts-png/ishvacerto/issues"
+
+[project.scripts]
+ishvacerto = "ishvacerto.cli:main"
+
+[tool.setuptools]
+packages = ["ishvacerto"]
