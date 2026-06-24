@@ -10,5 +10,5 @@ Runs locally. Your code never leaves the machine.
 from .verifier import Verdict, Verifier, verify
 from .differential import verify_against_reference
 
-__version__ = "0.1.0"
+__version__ = "0.1.1"
 __all__ = ["Verdict", "Verifier", "verify", "verify_against_reference", "__version__"]

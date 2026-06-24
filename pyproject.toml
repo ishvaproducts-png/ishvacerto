@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "ishvacerto"
-version = "0.1.0"
+version = "0.1.1"
 description = "Prove AI-written code, refute it with the exact failing input, or honestly abstain. Never guesses. Runs locally."
 readme = "README.md"
 requires-python = ">=3.9"
