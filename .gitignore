@@ -12,3 +12,7 @@ venv/
 editors/vscode/node_modules/
 editors/vscode/*.vsix
 editors/vscode/.vscode-test/
+
+# benchmark data (downloaded) + generated outputs -- not committed
+benchmarks/HumanEval.jsonl.gz
+benchmarks/*_outcome.json
