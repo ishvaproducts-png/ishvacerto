@@ -1,5 +1,10 @@
 # ishvacerto
 
+[![CI](https://github.com/ishvaproducts-png/ishvacerto/actions/workflows/ci.yml/badge.svg)](https://github.com/ishvaproducts-png/ishvacerto/actions/workflows/ci.yml)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
+[![Python 3.9+](https://img.shields.io/badge/python-3.9%2B-blue.svg)](https://www.python.org)
+[![Zero dependencies](https://img.shields.io/badge/dependencies-0-brightgreen.svg)](pyproject.toml)
+
 **Prove your AI-written code — or get the exact input that breaks it. Never a guess.**
 
 AI coding assistants are fast, but they ship confident bugs and hallucinated behavior. `ishvacerto` is the gate that sits
