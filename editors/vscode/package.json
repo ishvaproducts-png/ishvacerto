@@ -1,0 +1,50 @@
+{
+  "name": "ishvacerto",
+  "displayName": "ishvacerto — verify or abstain",
+  "description": "Verify-or-abstain code gate for Python: VERIFIED, REFUTED (with the exact counterexample), or honest ABSTAIN — runs the local ishvacerto CLI.",
+  "version": "0.1.0",
+  "publisher": "ishva",
+  "license": "MIT",
+  "engines": {
+    "vscode": "^1.75.0"
+  },
+  "categories": [
+    "Linters",
+    "Testing"
+  ],
+  "keywords": [
+    "verify",
+    "abstain",
+    "python",
+    "counterexample",
+    "ci-gate"
+  ],
+  "main": "./extension.js",
+  "activationEvents": [
+    "onLanguage:python",
+    "onCommand:ishvacerto.verifyFile"
+  ],
+  "contributes": {
+    "commands": [
+      {
+        "command": "ishvacerto.verifyFile",
+        "title": "ishvacerto: Verify current file"
+      }
+    ],
+    "configuration": {
+      "title": "ishvacerto",
+      "properties": {
+        "ishvacerto.path": {
+          "type": "string",
+          "default": "ishvacerto",
+          "description": "Path to the ishvacerto executable (or `python -m ishvacerto` wrapper). Defaults to `ishvacerto` on PATH."
+        },
+        "ishvacerto.verifyOnSave": {
+          "type": "boolean",
+          "default": false,
+          "description": "Run ishvacerto automatically when a Python file is saved."
+        }
+      }
+    }
+  }
+}

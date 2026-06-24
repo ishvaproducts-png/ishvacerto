@@ -7,3 +7,8 @@ dist/
 .venv/
 venv/
 .DS_Store
+
+# VS Code extension (editors/vscode)
+editors/vscode/node_modules/
+editors/vscode/*.vsix
+editors/vscode/.vscode-test/

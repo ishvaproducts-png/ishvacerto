@@ -1,6 +1,9 @@
 """ishvacerto tests -- the gate must: verify correct code, refute buggy code with a counterexample, abstain when it can't
 capture a spec, and NEVER false-alarm on correct code (including recursion + input-mutating functions)."""
+import json
+
 from ishvacerto import verify, verify_against_reference
+from ishvacerto.cli import main
 
 
 def test_doctest_verified():
@@ -53,3 +56,32 @@ def test_differential_no_false_alarm_on_input_mutating_fn():
 def test_verdict_is_falsey_only_when_refuted():
     assert bool(verify('def f(n):\n    """\n    >>> f(1)\n    1\n    """\n    return n*n\n'))           # VERIFIED -> truthy
     assert not bool(verify('def f(n):\n    """\n    >>> f(3)\n    9\n    """\n    return n+n\n'))       # REFUTED -> falsey
+
+
+# --- CLI --json contract: one JSON object on stdout, same exit codes as the human path ---------------------
+
+def _run_json(tmp_path, code, capsys, extra=None):
+    f = tmp_path / "snippet.py"
+    f.write_text(code, encoding="utf-8")
+    rc = main([str(f), "--json", *(extra or [])])
+    out = capsys.readouterr().out.strip()
+    return rc, json.loads(out)
+
+
+def test_cli_json_verified_exit0(tmp_path, capsys):
+    rc, obj = _run_json(tmp_path, 'def f(n):\n    """sq.\n    >>> f(3)\n    9\n    """\n    return n*n\n', capsys)
+    assert rc == 0
+    assert set(obj) == {"verdict", "entry_point", "spec_source", "counterexample", "detail"}
+    assert obj["verdict"] == "VERIFIED" and obj["entry_point"] == "f" and obj["spec_source"] == "doctest"
+
+
+def test_cli_json_refuted_exit1_with_counterexample(tmp_path, capsys):
+    rc, obj = _run_json(tmp_path, 'def f(n):\n    """sq.\n    >>> f(3)\n    9\n    """\n    return n+n\n', capsys)
+    assert rc == 1                                           # REFUTED gates CI
+    assert obj["verdict"] == "REFUTED" and obj["counterexample"] == "f(3)"
+
+
+def test_cli_json_abstain_exit0(tmp_path, capsys):
+    rc, obj = _run_json(tmp_path, 'def h(x):\n    return x*x\n', capsys)
+    assert rc == 0                                           # ABSTAIN passes the gate
+    assert obj["verdict"] == "ABSTAIN" and obj["entry_point"] == "h"
